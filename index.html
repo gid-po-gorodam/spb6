@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17151f">
+  <meta name="description" content="Атмосферный Петербург — секретные места Санкт-Петербурга.">
+  <title>Атмосферный Питер</title>
+  <link rel="stylesheet" href="style.css">
+
+<style>
+.channel-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px;opacity:1;visibility:visible;transition:opacity .25s ease,visibility .25s ease}.channel-overlay.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.channel-overlay__backdrop{position:absolute;inset:0;background:rgba(10,8,16,.74);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}.channel-modal{position:relative;width:min(100%,500px);padding:34px 26px 24px;border:1px solid rgba(255,255,255,.24);border-radius:28px;background:radial-gradient(circle at 50% 0%,rgba(238,131,190,.25),transparent 48%),linear-gradient(145deg,rgba(43,35,51,.99),rgba(22,19,30,.99));box-shadow:0 25px 80px rgba(0,0,0,.58);color:#fff;text-align:center;font-family:Arial,Helvetica,sans-serif;line-height:1.35;animation:modalIn .3s ease-out}.channel-modal__close{position:absolute;top:10px;right:12px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);font-size:27px;line-height:1;cursor:pointer}.channel-modal__eyebrow{display:inline-block;margin-bottom:15px;padding:8px 17px;border-radius:999px;background:linear-gradient(135deg,#d979ae,#a95e9a);font-size:13px;font-weight:700;letter-spacing:.5px}.channel-modal h2{margin:0 auto 12px;max-width:430px;font-size:clamp(25px,6vw,35px);line-height:1.1;font-weight:800}.channel-modal p{margin:0 auto 22px;max-width:410px;color:rgba(255,255,255,.86);font-size:16px}.channel-modal__actions{display:flex;flex-direction:column;gap:10px}.channel-modal__yes,.channel-modal__no{width:100%;min-height:54px;border-radius:16px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;transition:transform .15s ease,filter .15s ease,background .15s ease}.channel-modal__yes{color:#fff;background:linear-gradient(135deg,#e58abd,#c86ca6);box-shadow:0 8px 24px rgba(218,119,176,.28)}.channel-modal__yes:hover,.channel-modal__yes:active{filter:brightness(1.08);transform:translateY(-1px)}.channel-modal__no{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:rgba(255,255,255,.82)}.channel-modal__no:hover,.channel-modal__no:active,.channel-modal__close:hover{background:rgba(255,255,255,.12)}.channel-modal__hint{margin-top:14px;color:rgba(255,255,255,.45);font-size:12px}@keyframes modalIn{from{transform:translateY(16px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}@media(max-width:480px){.channel-modal{padding:31px 18px 20px;border-radius:24px}.channel-modal p{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="channel-overlay" id="channelOverlay">
+  <div class="channel-overlay__backdrop"></div>
+  <div class="channel-modal" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+    <button class="channel-modal__close" id="overlayClose" type="button" aria-label="Закрыть">×</button>
+    <div class="channel-modal__eyebrow">АТМОСФЕРНЫЙ ПИТЕР</div>
+    <h2 id="overlayTitle">Хотите узнать, где спрятано это место?</h2>
+    <p>Покажем секретную точку с красивым видом на Петербург — адрес и подробности уже ждут в нашем канале MAX.</p>
+    <div class="channel-modal__actions">
+      <a class="channel-modal__yes" href="https://max.ru/channel_sankt_peterburg2040/AaDcWR4pfeE" target="_blank" rel="noopener noreferrer">Да, хочу узнать место →</a>
+      <button class="channel-modal__no" id="overlayNo" type="button">Сначала посмотрю сайт</button>
+    </div>
+    <div class="channel-modal__hint">Можно вернуться к каналу в любой момент</div>
+  </div>
+</div>
+
+  <main class="landing">
+    <div class="poster">
+      <img
+        src="images/spb-banner.webp"
+        alt="Атмосферный Питер — секретная крыша с видом на собор"
+        class="poster-image"
+      >
+
+      <!-- Кликабельная область кнопки, уже нарисованной на баннере -->
+      <a
+        class="max-button"
+        href="https://max.ru/channel_sankt_peterburg2040/AaDcWR4pfeE"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Узнать место в MAX"
+      ></a>
+    </div>
+  </main>
+
+<script>
+(function () {
+  function initPopup() {
+    var overlay = document.getElementById('channelOverlay');
+    var noButton = document.getElementById('overlayNo');
+    var closeButton = document.getElementById('overlayClose');
+    var backdrop = overlay && overlay.querySelector('.channel-overlay__backdrop');
+
+    if (!overlay) return;
+
+    function closeOverlay() {
+      overlay.classList.add('is-hidden');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    if (noButton) noButton.addEventListener('click', closeOverlay);
+    if (closeButton) closeButton.addEventListener('click', closeOverlay);
+    if (backdrop) backdrop.addEventListener('click', closeOverlay);
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeOverlay();
+    });
+
+    document.body.style.overflow = 'hidden';
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPopup);
+  } else {
+    initPopup();
+  }
+})();
+</script>
+
+</body>
+</html>
